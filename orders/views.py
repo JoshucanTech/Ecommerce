@@ -1,6 +1,6 @@
 from .models import Order, OrderItem
 from .serializers import OrderItemSerializer, OrderSerializer
-from rest_framework import generics
+from rest_framework import generics, permissions
 from products.models import Product
 from rest_framework.exceptions import NotFound
 
@@ -41,9 +41,11 @@ class OrderItemUpdateView(generics.RetrieveUpdateDestroyAPIView):
 class OrderListView(generics.ListCreateAPIView):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
-    def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
+
+    # def perform_create(self, serializer):
+    #     serializer.save(user=self.request.user)
 
 
 
