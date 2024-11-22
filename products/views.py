@@ -6,7 +6,7 @@ from rest_framework import generics
 class ProductListView(generics.ListCreateAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
-    filterset_fields = ['category', 'price__lt']
+    filterset_fields = ['category', 'price']
 
 
 class ProductDetailView(generics.RetrieveUpdateDestroyAPIView):

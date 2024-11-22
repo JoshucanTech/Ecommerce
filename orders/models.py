@@ -1,6 +1,9 @@
 from django.db import models
 from django.conf import settings
 from products.models import Product
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
 
 
 
@@ -11,10 +14,10 @@ class Order(models.Model):
         ('cancelled','Cancelled')
     ]
     
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, related_name="order_products")
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="order_products")
     status = models.CharField(max_length=30, choices=ORDER_STATUS, default="pending")
 
-
+ 
     def __str__(self):
         return f"{self.pk} - {self.user}"
 
